@@ -1,2 +1,5 @@
 # PYC File
 *.pyc
+
+# Pycharm idea
+.idea
