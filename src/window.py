@@ -90,6 +90,7 @@ class Display(object):
         pygame.display.set_caption(title)
         self.min_size = min_size
 
+        self._total_ms = 0
         self._clock = pygame.time.Clock()
         self._FPS = fps
 
@@ -111,7 +112,8 @@ class Display(object):
         self._surf.blit(cs.txt_surface, cs.pos)
 
     def step(self, bg):
-        self._clock.tick(self._FPS)
+        self._total_ms += self._clock.tick(self._FPS)
+        #self._total_ms += self._FPS
 
         self._surf.fill(bg)
 
@@ -171,6 +173,9 @@ class Display(object):
     def reset_get_line(self):
         # Used after get_line method to reset sk
         self._sk_flag = True
+
+    def get_run_time(self):
+        return self._total_ms
 
     def beep(self):
         self.beep_sound.play()

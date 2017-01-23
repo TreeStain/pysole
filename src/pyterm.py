@@ -123,12 +123,21 @@ class Terminal(object):
         self._row += 1
         return line[0]
 
+    def sleep(self, ms):
+        time = self._display.get_run_time()
+        cur_time = time
+        while cur_time < time + ms:
+            cur_time = self._display.get_run_time()
+            self._core_update()
+
     def quit(self):
         '''calls the display quit function'''
         self._display.quit()
 
 if __name__ == '__main__':
     c = Terminal(title='pyterm.py test')
+
+    c.sleep(4000)
 
     c.write_line()
     c.write_line('C:\\Users\\RGSSt\\pyterm\\src>git status')
