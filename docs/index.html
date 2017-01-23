@@ -14,7 +14,7 @@
       margin-left: 20px;
     }
     p{
-      margin-left: 50px;
+      margin-left: 40px;
       margin-right: 100px;
     }
     pre {
@@ -24,6 +24,7 @@
     }
     a {
       color: #487FF8;
+      text-decoration: none;
     }
     a.heading {
       color: #a8a8a8;
@@ -40,7 +41,7 @@
     }
     #header {
       width: 100%;
-      height: 75px;
+      height: 50px;
       background-color: #696969;
       top: 0px;
       left: 0px;
@@ -50,12 +51,15 @@
       display: inline-block;
     }
     #header-image {
-
+      position: absolute;
+      top: 5px;
+      left: 5px;
     }
     #header-text {
       position: absolute;
-      left: 5%;
-      top: 0px;
+      left: 3%;
+      top: 3px;
+      margin-top: 0px;
       color: black;
     }
     #header-backtotop {
@@ -70,9 +74,9 @@
   <header id='header'>
     <img id='header-image' src='icon.png' alt='Pyterm Logo'/ >
     <h1 id='header-text'>Pyterm Documentation</h1>
-    <a href='#introduction'><img id='header-backtotop' src='' alt='Back to Top'/></a>
+    <a href='#introduction'><img id='header-backtotop' src='top.png' alt='Back to Top'/></a>
   </header>
-  </br></br></br></br>
+  </br></br>
   <h2><a name='introduction' class='heading'>Introduction</a></h2>
   <p><b>Pyterm</b> is a graphical terminal simulation pygame wrapper or in simpler
   terms, <b>Pyterm</b> uses pygame to simulate a text interface, such as Windows
@@ -95,6 +99,13 @@
     <li><a href='https://github.com/TreeStain/pyterm'>Github repository</a></li>
     <li><a href='#'>Sourceforge</a></li>
   </ul>
+  <p>
+    Pyterm can also be installed with pip and the PyPi using the following command.
+    <pre>
+
+      pip install pyterm
+    </pre>
+  </p>
   <h2><a name='how-to-use' class='heading'>How to use</a></h2>
   <p>
     In order to intergrate your <b>Pyterm</b> with your application there is a few steps
