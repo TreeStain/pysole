@@ -38,11 +38,42 @@
       font-style: oblique;
       color: #696969;
     }
+    #header {
+      width: 100%;
+      height: 75px;
+      background-color: #696969;
+      top: 0px;
+      left: 0px;
+      position: fixed;
+      z-index: 10000;
+      opacity: 0.8;
+      display: inline-block;
+    }
+    #header-image {
+
+    }
+    #header-text {
+      position: absolute;
+      left: 5%;
+      top: 0px;
+      color: black;
+    }
+    #header-backtotop {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
   </style>
+  <link rel='icon' href='icon.png'>
 </head>
 <body>
-  <h1>Pyterm Documentation</h1>
-  <h2>Introduction</h2>
+  <header id='header'>
+    <img id='header-image' src='icon.png' alt='Pyterm Logo'/ >
+    <h1 id='header-text'>Pyterm Documentation</h1>
+    <a href='#introduction'><img id='header-backtotop' src='' alt='Back to Top'/></a>
+  </header>
+  </br></br></br></br>
+  <h2><a name='introduction' class='heading'>Introduction</a></h2>
   <p><b>Pyterm</b> is a graphical terminal simulation pygame wrapper or in simpler
   terms, <b>Pyterm</b> uses pygame to simulate a text interface, such as Windows
   powershell or the Linux Terminal. Initially <b>Pyterm</b> was built to emulate .NET
