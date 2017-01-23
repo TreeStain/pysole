@@ -10,12 +10,9 @@ Example:
     >> c = ute.Console(title="Console", icon="icon.png")
 
 Todo:
-    * (Tristan Arthur): Fix read_line output spacing (TEMPORARY FIX APPLIED)
     * (Tristan Arthur): Add documentation and commenting
-    * (Tristan Arthur): Add removal of characters on screen for BACKSPACE
     * (Tristan Arthur): Add screen scrolling for when text goes off screen
     * (Tristan Arthur): Copy, paste, cut text, good luck xD
-    * (Tristan Arthur): Rename module from "UTE" to "ute" to be inline with python standards
 
 """
 
@@ -116,6 +113,11 @@ class Terminal(object):
             line = self._display.get_line()
             if line[2] is not None:
                 self.write(line[2])
+            if line[3]:
+                # Handle backspacing, very hacky
+                self._write_buffer[0] = self._write_buffer[0][:-1]
+                self._write_buffer[1] -= 1
+                self.write('')
         self._write_buffer = ["", 0]
         self._display.reset_get_line()
         self._row += 1
@@ -126,7 +128,9 @@ class Terminal(object):
         self._display.quit()
 
 if __name__ == '__main__':
-    c = Terminal()
-    c.write_line('hello world')
-    print(c.read_line('name: '))
+    c = Terminal(title='pyterm.py test')
+
+    
+
+    c.read_key()
     c.quit()

@@ -72,7 +72,7 @@ class CharacterString(object):
         self.render()
 
     def render(self):
-        self.txt_surface = self.f.font.render(self.text, True, self.col)
+        self.txt_surface = self.f.font.render(str(self.text), True, self.col)
 
 
 class Display(object):
@@ -102,6 +102,8 @@ class Display(object):
         self._key_down = None
         # Event variable for return pressed
         self._return_down = False
+        # Event variable for backspace pressed\
+        self._back_down = False
 
         self.beep_sound = pygame.mixer.Sound("assets/beep.wav")
 
@@ -116,6 +118,7 @@ class Display(object):
         # Reset key down variables at start of step
         self._key_down = None
         self._return_down = False
+        self._back_down = False
 
         # Check if sk flag triggered and reset sk and sk flag
         if self._sk_flag is True:
@@ -136,8 +139,8 @@ class Display(object):
                 if event.key == K_RETURN:
                     self._return_down = True
                 elif event.key == K_BACKSPACE:
-                    print(self._sustained_keys[:-1])
                     self._sustained_keys = self._sustained_keys[:-1]
+                    self._back_down = True
                 elif event.key != K_LSHIFT:
                     if upper:
                         self._key_down = chr(event.key).upper()
@@ -163,7 +166,7 @@ class Display(object):
 
     def get_line(self):
         # Return all sk, return pressed event and key pressed this frame
-        return [self._sustained_keys, self._return_down, self._key_down]
+        return [self._sustained_keys, self._return_down, self._key_down, self._back_down]
 
     def reset_get_line(self):
         # Used after get_line method to reset sk

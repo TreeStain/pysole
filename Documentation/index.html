@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #282C34;
+    }
+    h1, h2, h3, p, li {
+      color: #F1FAFF;
+      font-family: 'Arial', Gadget, sans-serif;
+      font-weight: 50;
+    }
+    h1, h2, h3 {
+      margin-left: 20px;
+    }
+    p{
+      margin-left: 50px;
+      margin-right: 100px;
+    }
+    pre {
+      background-color: #31363F;
+      border-radius: 5px;
+      color: #9FB2A3;
+    }
+    a {
+      color: #487FF8;
+    }
+    .comment {
+      color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pyterm Documentation</h1>
+  <h2>Introduction</h2>
+  <p><b>Pyterm</b> is a graphical terminal simulation pygame wrapper or in simpler
+  terms, <b>Pyterm</b> uses pygame to simulate a text interface, such as Windows
+  powershell or the Linux Terminal. Initially <b>Pyterm</b> was built to emulate .NET
+  Console Applications with their dynamic text and background colouring. However,
+  .NET Console Applications, without the support of mono cannot run on operating
+  systems other then windows. <b>Pyterm</b> can run on any os that python and pygame
+  can.
+  </p>
+  <h2>Table of contents</h2>
+  <ol>
+    <li><a href='#'>Download</a></li>
+    <li><a href='#'>How to use</a></li>
+    <li><a href='#'>Source file overview</a></li>
+  </ol>
+  <h2>Download</h2>
+  <ul>
+    <li><a href='#'>Github repository</a></li>
+    <li><a href='#'>Sourceforge</a></li>
+  </ul>
+  <h2>How to use</h2>
+  <p>
+    In order to intergrate your <b>Pyterm</b> with your application there is a few steps
+    you must follow. First of all you need to import <b>Pyterm</b>. Although it is not
+    necessary you can also import the Colour module, which gives you an
+    enourmouse selection of named colours.
+  </p>
+<pre>
+
+      import pyterm
+      import colour
+    </pre>
+  <p>
+    Next you must initialise and store a new Terminal object. The terminal object
+    can be initialised with two optional values <i>title</i> and <i>icon</i>.
+  </p>
+<pre>
+
+      console = pyterm.Terminal(title='My Console', icon='customicon.png')
+    </pre>
+  <p>
+    Now that you have an initialised Terminal object you are now able to read, write,
+    and change the display of the terminal.
+  </p>
+<pre>
+
+      <span class='comment'># Console write, writes the text you parse it without a newline at the end of the string.</span>
+      console.write('Hello World')
+
+      <span class='comment'># Console write line does the same as write except with a newline at the end.</span>
+      console.write_line(', this is a terminal')
+
+      <span class='comment'># Console read line returns all the input of a user until they press return.</span>
+      name = console.read_line('What is your name? ')
+
+      <span class='comment'># Console read key returns a single user key press.</span>
+      key = console.read_key()
+    </pre>
+  <p>
+    In order to change the colours of the text and background all that needs to be done is to change
+    the terminal variables <i>foreground_color</i> and <i>background_color</i>
+  </p>
+<pre>
+
+      console.foreground_color = ConsoleColour.red
+      console.background_color = ConsoleColour.white
+
+</pre>
+  <h2>Source file overview</h2>
+</body>
+</html>
