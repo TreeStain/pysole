@@ -130,7 +130,27 @@ class Terminal(object):
 if __name__ == '__main__':
     c = Terminal(title='pyterm.py test')
 
-
+    c.write_line()
+    c.write_line('C:\\Users\\RGSSt\\pyterm\\src>git status')
+    c.write_line('On branch master')
+    c.write_line('Your branch is up-to-date with \'origin/master\'.')
+    c.write_line('Changes to be committed:')
+    c.write_line('  (use "git reset HEAD <file>..." to unstage)')
+    c.write_line()
+    c.foreground_color = ConsoleColour.green
+    c.write_line('        modified:    pyterm.py')
+    c.foreground_color = ConsoleColour.white
+    c.write_line()
+    c.write_line('Changes not staged for commit:')
+    c.write_line('  (use "git add <file>..." to update what will be committed)')
+    c.write_line('  (use "git checkout -- <file>..." to discard changes in working directory)')
+    c.write_line()
+    c.foreground_color = ConsoleColour.red
+    c.write_line('        modified:   ../docs/index.html')
+    c.foreground_color = ConsoleColour.white
+    c.write_line()
+    c.write_line()
+    c.write_line('C:\\Users\\RGSSt\\pyterm\\src>')
 
     c.read_key()
     c.quit()
