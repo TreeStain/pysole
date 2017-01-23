@@ -130,7 +130,7 @@ class Terminal(object):
 if __name__ == '__main__':
     c = Terminal(title='pyterm.py test')
 
-    
+
 
     c.read_key()
     c.quit()

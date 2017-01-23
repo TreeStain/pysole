@@ -6,7 +6,7 @@
       background-color: #282C34;
     }
     h1, h2, h3, p, li {
-      color: #F1FAFF;
+      color: #a8a8a8;
       font-family: 'Arial', Gadget, sans-serif;
       font-weight: 50;
     }
@@ -25,8 +25,18 @@
     a {
       color: #487FF8;
     }
-    .comment {
+    a.heading {
+      color: #a8a8a8;
+    }
+    .string {
       color: lightgreen;
+    }
+    .keyword {
+      color: orange;
+    }
+    .comment {
+      font-style: oblique;
+      color: #696969;
     }
   </style>
 </head>
@@ -43,16 +53,18 @@
   </p>
   <h2>Table of contents</h2>
   <ol>
-    <li><a href='#'>Download</a></li>
-    <li><a href='#'>How to use</a></li>
-    <li><a href='#'>Source file overview</a></li>
+    <li><a href='#download'>Download</a></li>
+    <li><a href='#how-to-use'>How to use</a></li>
+    <li><a href='#planned-featrues'>Planned features</a></li>
+    <li><a href='#known-bugs'>Known bugs</a></li>
+    <li><a href='#source-file-overview'>Source file overview</a></li>
   </ol>
-  <h2>Download</h2>
+  <h2><a name='download' class='heading'>Download</a></h2>
   <ul>
-    <li><a href='#'>Github repository</a></li>
+    <li><a href='https://github.com/TreeStain/pyterm'>Github repository</a></li>
     <li><a href='#'>Sourceforge</a></li>
   </ul>
-  <h2>How to use</h2>
+  <h2><a name='how-to-use' class='heading'>How to use</a></h2>
   <p>
     In order to intergrate your <b>Pyterm</b> with your application there is a few steps
     you must follow. First of all you need to import <b>Pyterm</b>. Although it is not
@@ -61,8 +73,8 @@
   </p>
 <pre>
 
-      import pyterm
-      import colour
+      <span class='keyword'>import</span> pyterm
+      <span class='keyword'>import</span> colour
     </pre>
   <p>
     Next you must initialise and store a new Terminal object. The terminal object
@@ -70,7 +82,7 @@
   </p>
 <pre>
 
-      console = pyterm.Terminal(title='My Console', icon='customicon.png')
+      console = pyterm.Terminal(<span class='keyword'>title</span>=<span class='string'>'My Console'</span>, <span class='keyword'>icon</span>=<span class='string'>'customicon.png'</span>)
     </pre>
   <p>
     Now that you have an initialised Terminal object you are now able to read, write,
@@ -79,13 +91,13 @@
 <pre>
 
       <span class='comment'># Console write, writes the text you parse it without a newline at the end of the string.</span>
-      console.write('Hello World')
+      console.write(<span class='string'>'Hello World'</span>)
 
       <span class='comment'># Console write line does the same as write except with a newline at the end.</span>
-      console.write_line(', this is a terminal')
+      console.write_line(<span class='string'>', this is a terminal'</span>)
 
       <span class='comment'># Console read line returns all the input of a user until they press return.</span>
-      name = console.read_line('What is your name? ')
+      name = console.read_line(<span class='string'>'What is your name? '</span>)
 
       <span class='comment'># Console read key returns a single user key press.</span>
       key = console.read_key()
@@ -100,6 +112,8 @@
       console.background_color = ConsoleColour.white
 
 </pre>
-  <h2>Source file overview</h2>
+  <h2><a name='planned-features' class='heading'>Planned features</a></h2>
+  <h2><a name='known-bugs' class='heading'>Known bugs</a></h2>
+  <h2><a name='source-file-overview' class='heading'>Source file overview</a></h2>
 </body>
 </html>
