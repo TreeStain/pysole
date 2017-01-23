@@ -96,6 +96,9 @@
       <span class='comment'># Console write line does the same as write except with a newline at the end.</span>
       console.write_line(<span class='string'>', this is a terminal'</span>)
 
+      <span class='comment'># Console clear, clears the frame and removes all text from the terminal display buffer.</span>
+      console.clear()
+
       <span class='comment'># Console read line returns all the input of a user until they press return.</span>
       name = console.read_line(<span class='string'>'What is your name? '</span>)
 
@@ -111,7 +114,18 @@
       console.foreground_color = ConsoleColour.red
       console.background_color = ConsoleColour.white
 
+      <span class='comment'># The reset colour method resets the terminal colours back to the defaults.</span>
+      console.reset_color()
+
 </pre>
+  <p>
+    To quit pyterm and close the window the following statement must be used.
+<pre>
+
+      console.quit()
+
+</pre>
+  </p>
   <h2><a name='planned-features' class='heading'>Planned features</a></h2>
   <h2><a name='known-bugs' class='heading'>Known bugs</a></h2>
   <h2><a name='source-file-overview' class='heading'>Source file overview</a></h2>
