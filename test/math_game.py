@@ -5,7 +5,7 @@ from colour import ConsoleColour
 from random import randint
 
 
-c = UTE.Terminal(title="Math Game")
+c = pyterm.Terminal(title="Math Game")
 
 
 def main():
@@ -17,11 +17,11 @@ def main():
         user_ans = c.read_line("{x} + {y} = ".format(x=n1, y=n2))
         if user_ans == str(ans):
             num_correct += 1
-            c.foreground_color = ConsoleColor.green
+            c.foreground_color = ConsoleColour.green
             c.write_line("Correct")
         else:
             num_incorrect += 1
-            c.foreground_color = ConsoleColor.red
+            c.foreground_color = ConsoleColour.red
             c.write_line("Incorrect")
         c.reset_color()
 

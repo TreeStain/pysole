@@ -1,94 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      background-color: #282C34;
-    }
-    table {
-      width: 100%;
-    }
-    th {
-      border-style: solid;
-      border-color: #31363F;
-      text-align: left;
-    }
-    ul, ol {
-      margin-left: 40px;
-    }
-    h1, h2, h3, p, li, th {
-      color: #a8a8a8;
-      font-family: 'Arial', Gadget, sans-serif;
-      font-weight: 50;
-    }
-    h1, h2, h3 {
-      margin-left: 20px;
-    }
-    p{
-      margin-left: 40px;
-      margin-right: 100px;
-    }
-    pre {
-      background-color: #31363F;
-      border-radius: 5px;
-      color: #9FB2A3;
-      margin-left: 0px;
-      width: 100%;
-    }
-    a {
-      color: #487FF8;
-      text-decoration: none;
-    }
-    a.heading {
-      color: #a8a8a8;
-    }
-    .string {
-      color: lightgreen;
-    }
-    .keyword {
-      color: orange;
-    }
-    .comment {
-      font-style: oblique;
-      color: #696969;
-    }
-    #header {
-      width: 100%;
-      height: 50px;
-      background-color: #1F2228;
-      top: 0px;
-      left: 0px;
-      position: fixed;
-      z-index: 10000;
-      opacity: 0.9;
-      display: inline-block;
-    }
-    #header-image {
-      position: absolute;
-      top: 5px;
-      left: 5px;
-    }
-    #header-text {
-      position: absolute;
-      left: 3%;
-      top: 3px;
-      margin-top: 0px;
-      color: #686868;
-    }
-    #header-backtotop {
-      position: absolute;
-      right: 5px;
-      top: 5px;
-    }
-  </style>
-  <link rel='icon' href='icon.png'>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel='icon' href='static/icon.png'>
 </head>
 <body>
-  <!-- Authors, Dependencies -->
   <header id='header'>
-    <img id='header-image' src='icon.png' alt='Pyterm Logo'/ >
+    <img id='header-image' src='static/icon.png' alt='Pyterm Logo'/ >
     <h1 id='header-text'>Pyterm Documentation</h1>
-    <a href='#introduction'><img id='header-backtotop' src='top.png' alt='Back to Top'/></a>
   </header>
   </br></br>
   <h2><a name='introduction' class='heading'>Introduction</a></h2>
@@ -208,7 +127,7 @@
 </pre>
   </br>
   <h2><a name='images' class='heading'>Images</a></h2>
-  <img src='img-1.png' alt='Image 1'/>
+  <img src='static/img-1.png' alt='Image 1'/>
   <h2><a name='authors' class='heading'>Authors</a></h2>
   <p>
     Currently the list of authors is very short (1 person)
@@ -223,7 +142,8 @@
   <ul>
     <li>Copy/Cut/Paste</li>
     <li>Text Wrapping</li>
-    <li>Scrolling</li>
+    <li>Scrolling &#10004;</li>
+    <li>Scrolling - Mem Saving &#10004;</li>
     <li>Column & Row selection</li>
     <li>Changing fonts</li>
     <li>Dynamic font sizes</li>

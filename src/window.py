@@ -65,7 +65,7 @@ class CharacterString(object):
     """
     def __init__(self, text, f, pos, col=(255, 255, 255)):
         self.txt_surface = None
-        self.pos = pos
+        self.pos = list(pos)
         self.col = col
         self.f = f
         self.text = text
@@ -84,7 +84,7 @@ class Display(object):
         pygame.display.set_icon(pygame.image.load(icon_loc))
 
         self.width = size[0]
-        self.height =  size[1]
+        self.height = size[1]
 
         self._surf = pygame.display.set_mode((self.width, self.height), HWSURFACE | DOUBLEBUF | RESIZABLE)
         pygame.display.set_caption(title)

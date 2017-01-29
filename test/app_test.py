@@ -5,7 +5,7 @@ import pyterm
 
 
 
-c = UTE.Terminal(title="DEBUG: Universal Terminal Emulator", icon="icon.png")
+c = pyterm.Terminal(title="DEBUG: Pyterm", icon="assets/icon.png")
 
 
 def main():

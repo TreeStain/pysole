@@ -1,29 +1,40 @@
-"""Universal Terminal Emulator ute module.
+'''Pyterm module initially created by Tristan Arthur
 
-This module acts as the controller for the window module and abstracts all low level
-activity from the user. If the window module was a set of tools the ute module is
-instructions on how to use those tools.
+Pyterm is a pygame wrapper for simulating C# console applications.
 
-Example:
-    $ python3
-    >> import ute
-    >> c = ute.Console(title="Console", icon="icon.png")
+To expand, pyterm uses pygames graphics capabilities in an attempt to standardize
+text output through a terminal or console. For example, in order to write a
+console application that supports colours for windows, you must use C#, however
+to do the same thing on a linux system, curses/ncurses is needed. Pyterm escapes
+this issue. Thus if a console application that supports colours is needed as well
+as support for multiple operating systems, use pyterm.
 
-Todo:
-    * (Tristan Arthur): Add documentation and commenting
-    * (Tristan Arthur): Add screen scrolling for when text goes off screen
-    * (Tristan Arthur): Copy, paste, cut text, good luck xD
+Extended documentation can be found at treestain.github.io/pyterm/
 
-"""
+Classes:
+    Terminal: Acts as an abstraction to the window class.
+
+Exceptions:
+    TerminalError: Used for more unique and readable error messages.
+'''
 
 
 from colour import ConsoleColour
 from window import *
 
 
-class Terminal(object):
-    def __init__(self, title="Universal Terminal Emulator", icon="assets/icon.png"):
+class TerminalError(Exception):
+    def __init__(self, message):
+        self.message = message
 
+class Terminal:
+    def __init__(self, title="Universal Terminal Emulator", icon="assets/icon.png"):
+        '''Initialises a terminal object and an inner display object.
+
+        Keyword arguments:
+        title -- The title of the window.
+        icon -- The icon of the window.
+        '''
         self.background_color = ConsoleColour.black
         self.foreground_color = ConsoleColour.white
 
@@ -32,6 +43,8 @@ class Terminal(object):
         self._display = Display(self.title, self._fps, icon)
 
         self.default_font = Font("assets/windows.ttf", 15)
+        self.row_height = self.default_font.font.size('s')[0]
+        self.col_width = self.default_font.font.size('s')[0]
 
         self._row = 0
         self._column = 0
@@ -43,15 +56,37 @@ class Terminal(object):
         self._write_buffer = ["", 0]
 
     def _core_update(self):
-        '''Completes one full cycle of the window loop including, step, display and update'''
+        '''Completes one frame of the display'''
         self._display.step(self.background_color)
-        for line in self._frame:
-            self._display.display_text(line)
+        for text in self._frame:
+            self._display.display_text(text)
         self._display.update()
 
+    def _trim_lines(self, size):
+        '''Deletes lines from the start of the frame to the value of size'''
+        if len(self._frame) > size:
+            i = 0
+            while i < len(self._frame) - size:
+                self._frame.remove(self._frame[i])
+                i += 1
+
+    def _check_write_bounds(self):
+        '''Scroll function, will scroll if text is going off screen'''
+        col_height = self._row * self.default_font.font.size('s')[1]
+        win_height = self._display.height
+
+        if col_height >= win_height:
+            for cs in self._frame:
+                cs.pos[1] -= self.default_font.font.size('s')[1]
+            self._row -= 1
+
+        self._trim_lines(150)
+
+    def get_size(self):
+        return (self._display.width // self.col_width, self._display.height // self.row_height)
 
     def write_line(self, text=""):
-        '''Writes a text to output and then increments row by 1'''
+        '''Writes text to the display with a new line.'''
         self._frame += [CharacterString(text, self.default_font,
                                        (self._column * self.default_font.font.size(self._write_buffer[0])[0],
                                         self._row * self.default_font.font.size(self._write_buffer[0])[1]),
@@ -59,11 +94,12 @@ class Terminal(object):
         self._row += 1
         self._column = 0
         self._write_buffer = ["", 0]
+        self._check_write_bounds()
         self._core_update()
 
     def write(self, text):
-        '''Writes text to output'''
-        self._write_buffer[0] += text
+        '''Writes text to display'''
+        self._write_buffer[0] += str(text)
         try:
             if self._write_buffer[1] != 0:
                 self._frame.pop()
@@ -75,10 +111,11 @@ class Terminal(object):
                                         self.foreground_color)]
 
         self._write_buffer[1] += 1
+        self._check_write_bounds()
         self._core_update()
 
     def clear(self):
-        '''Clears the frame buffer, thus clearing the screen of text'''
+        '''Clears the display.'''
         self._frame.clear()
         self._row = 0
         self._column = 0
@@ -89,18 +126,20 @@ class Terminal(object):
 
     def reset_color(self):
         '''Resets console colour to default colours'''
-        self.background_color = ConsoleColor.black
-        self.foreground_color = ConsoleColor.white
+        self.background_color = ConsoleColour.black
+        self.foreground_color = ConsoleColour.white
 
     def read(self):
         pass
 
-    def read_key(self):
-        '''Reads a single key from input stream and returns it'''
+    def read_key(self, wait=True):
+        '''Reads a single key from user input'''
         key = self._display.get_key()
-        while key is None:
-            self._core_update()
-            key = self._display.get_key()
+        if wait:
+            while key is None:
+                self._core_update()
+                key = self._display.get_key()
+        self._core_update()
         return key
 
     def read_line(self, for_text=""):
@@ -126,7 +165,7 @@ class Terminal(object):
     def sleep(self, ms):
         time = self._display.get_run_time()
         cur_time = time
-        while cur_time < time + ms:
+        while cur_time <= time + ms:
             cur_time = self._display.get_run_time()
             self._core_update()
 
@@ -136,8 +175,16 @@ class Terminal(object):
 
 if __name__ == '__main__':
     c = Terminal(title='pyterm.py test')
+    #c.sleep(4000)
+    c.write_line('C:\\Users\\RGSSt\\pyterm\\src>git status')
+    while True:
+        k = c.read_key(wait=False)
+        if k is not None:
+            print(k)
+        if k == 'h':
+            break
 
-    c.sleep(4000)
+    c.clear()
 
     c.write_line()
     c.write_line('C:\\Users\\RGSSt\\pyterm\\src>git status')
@@ -150,7 +197,7 @@ if __name__ == '__main__':
     c.write_line('        modified:    pyterm.py')
     c.foreground_color = ConsoleColour.white
     c.write_line()
-    c.write_line('Changes not staged for commit:')
+    c.write_line('Changes not staged or commit:')
     c.write_line('  (use "git add <file>..." to update what will be committed)')
     c.write_line('  (use "git checkout -- <file>..." to discard changes in working directory)')
     c.write_line()
@@ -160,6 +207,9 @@ if __name__ == '__main__':
     c.write_line()
     c.write_line()
     c.write_line('C:\\Users\\RGSSt\\pyterm\\src>')
+
+    for i in range(20):
+        c.write(i)
 
     c.read_key()
     c.quit()
