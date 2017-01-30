@@ -76,6 +76,30 @@ class CharacterString(object):
 
 
 class Display(object):
+
+    SHIFT_VARIATIONS = {'`': '~',
+                        '1': '!',
+                        '2': '@',
+                        '3': '#',
+                        '4': '$',
+                        '5': '%',
+                        '6': '^',
+                        '7': '&',
+                        '8': '*',
+                        '9': '(',
+                        '0': ')',
+                        '-': '_',
+                        '+': '=',
+                        '[': '{',
+                        ']': '}',
+                        '\\': '|',
+                        ';': ':',
+                        '\'': '"',
+                        ',': '<',
+                        '.': '>',
+                        '/': '?'
+                        }
+
     def __init__(self, title, fps, icon_loc, size=(500, 300), min_size=(500, 300)):
         pygame.init()
         pygame.font.init()
@@ -145,11 +169,14 @@ class Display(object):
                     self._back_down = True
                 elif event.key != K_LSHIFT:
                     if upper:
-                        self._key_down = chr(event.key).upper()
-                        self._sustained_keys += self._key_down.upper()
+                        try:
+                            if Display.SHIFT_VARIATIONS[chr(event.key)]:
+                                self._key_down = Display.SHIFT_VARIATIONS[chr(event.key)]
+                        except KeyError:
+                            self._key_down = chr(event.key).upper()
                     else:
                         self._key_down = chr(event.key)
-                        self._sustained_keys += self._key_down
+                    self._sustained_keys += self._key_down
 
             # Handle resizing and min window size
             if event.type == VIDEORESIZE:
@@ -163,7 +190,7 @@ class Display(object):
 
     def get_key(self):
         # Return key pressed on this frame, return None if no key pressed
-        self._sustained_keys = ""
+        self._sustained_keys = ''
         return self._key_down
 
     def get_line(self):
@@ -185,7 +212,8 @@ class Display(object):
         pygame.display.update()
 
     @staticmethod
-    def quit():
+    def quit(full_quit=True):
         pygame.font.quit()
         pygame.quit()
-        exit()
+        if full_quit:
+            exit()

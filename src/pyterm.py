@@ -39,8 +39,9 @@ class Terminal:
         self.foreground_color = ConsoleColour.white
 
         self.title = title
+        self.icon = icon
         self._fps = 60
-        self._display = Display(self.title, self._fps, icon)
+        self._display = Display(self.title, self._fps, self.icon)
 
         self.default_font = Font("assets/windows.ttf", 15)
         self.row_height = self.default_font.font.size('s')[0]
@@ -169,6 +170,13 @@ class Terminal:
             cur_time = self._display.get_run_time()
             self._core_update()
 
+    def hide(self):
+        self._display.quit(full_quit=False)
+        self._display = None
+
+    def show(self):
+        self._display = Display(self.title, self._fps, self.icon)
+
     def quit(self):
         '''calls the display quit function'''
         self._display.quit()
@@ -181,8 +189,11 @@ if __name__ == '__main__':
         k = c.read_key(wait=False)
         if k is not None:
             print(k)
-        if k == 'h':
+        if k == '~':
+            c.hide()
             break
+# Config dictionary title, fps, icon, text-cut-off-limit, def-size, min-size
+    c.show()
 
     c.clear()
 
