@@ -49,8 +49,11 @@ class Terminal:
                         'default_foreground_colour': ConsoleColour.white,
                         'default_width': 500,
                         'default_height': 300,
-                        'default_min_width': 500,
-                        'default_min_height': 300,
+                        'default_min_width': None,
+                        'default_min_height': None,
+                        'default_max_width': None,
+                        'default_max_height': None,
+                        'resizeable': True,
                         'font': None
         }
 
@@ -67,7 +70,8 @@ class Terminal:
                                 size=(self._config['default_width'],
                                       self._config['default_height']),
                                 min_size=(self._config['default_min_width'],
-                                          self._config['default_min_height']))
+                                          self._config['default_min_height']),
+                                resizeable=self._config['resizeable'])
 
         self.default_font = Font("assets/windows.ttf", 15)
         self.row_height = self.default_font.font.size('s')[0]
@@ -216,7 +220,7 @@ class Terminal:
         self._display.quit()
 
 if __name__ == '__main__':
-    config = {'title': 'Pyterm.py test'
+    config = {'title': 'Pyterm.py test', 'resizeable': True
     }
 
     c = Terminal(config)
@@ -227,10 +231,7 @@ if __name__ == '__main__':
         if k is not None:
             print(k)
         if k == '~':
-            c.hide()
             break
-
-    c.show()
 
     c.clear()
 

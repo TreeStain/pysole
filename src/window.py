@@ -100,7 +100,9 @@ class Display(object):
                         '/': '?'
                         }
 
-    def __init__(self, title, fps, icon_loc, size=(500, 300), min_size=(500, 300)):
+    def __init__(self, title, fps, icon_loc, size=(500, 300), min_size=(None, None),
+                                                              max_size=(None, None),
+                                                              resizeable=False):
         pygame.init()
         pygame.font.init()
         pygame.mixer.init()
@@ -110,9 +112,12 @@ class Display(object):
         self.width = size[0]
         self.height = size[1]
 
-        self._surf = pygame.display.set_mode((self.width, self.height), HWSURFACE | DOUBLEBUF | RESIZABLE)
+        self._surf = pygame.display.set_mode((self.width, self.height), HWSURFACE | DOUBLEBUF)
         pygame.display.set_caption(title)
         self.min_size = min_size
+        self.max_size = max_size
+
+        self.resizeable = resizeable
 
         self._total_ms = 0
         self._clock = pygame.time.Clock()
@@ -179,14 +184,20 @@ class Display(object):
                     self._sustained_keys += self._key_down
 
             # Handle resizing and min window size
-            if event.type == VIDEORESIZE:
+            if event.type == VIDEORESIZE and self.resizeable:
                 self.width, self.height = event.size
-                if self.width < self.min_size[0]:
-                    self.width = self.min_size[0]
-                if self.height < self.min_size[1]:
-                    self.height = self.min_size[1]
+                if self.min_size != (None, None):
+                    if self.width < self.min_size[0]:
+                        self.width = self.min_size[0]
+                    if self.height < self.min_size[1]:
+                        self.height = self.min_size[1]
+                if self.max_size != (None, None):
+                    if self.width > self.max_size[0]:
+                        self.width = self.max_size[0]
+                    if self.height > self.max_size[1]:
+                        self.height = self.max_size[1]
                 self._surf = pygame.display.set_mode((self.width, self.height), HWSURFACE | DOUBLEBUF | RESIZABLE)
-                pygame.display.flip()
+            #pygame.display.flip()
 
     def get_key(self):
         # Return key pressed on this frame, return None if no key pressed
