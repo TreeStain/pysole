@@ -27,21 +27,47 @@ class TerminalError(Exception):
     def __init__(self, message):
         self.message = message
 
+class TerminalConfigError(Exception):
+    def __init__(self, message):
+        self.message = message
+
 class Terminal:
-    def __init__(self, title="Universal Terminal Emulator", icon="assets/icon.png"):
+    def __init__(self, config=None):
         '''Initialises a terminal object and an inner display object.
 
         Keyword arguments:
         title -- The title of the window.
         icon -- The icon of the window.
         '''
-        self.background_color = ConsoleColour.black
-        self.foreground_color = ConsoleColour.white
 
-        self.title = title
-        self.icon = icon
-        self._fps = 60
-        self._display = Display(self.title, self._fps, self.icon)
+        # Fixed window size config
+        self._config = {'title': 'Pyterm',
+                        'icon': 'assets/icon.png',
+                        'fps': 60,
+                        'line_cutoff': 150,
+                        'default_background_colour': ConsoleColour.black,
+                        'default_foreground_colour': ConsoleColour.white,
+                        'default_width': 500,
+                        'default_height': 300,
+                        'default_min_width': 500,
+                        'default_min_height': 300,
+                        'font': None
+        }
+
+        if config is not None:
+            self.change_config(config)
+
+        self.background_color = self._config['default_background_colour']
+        self.foreground_color = self._config['default_foreground_colour']
+
+        self.title = self._config['title']
+        self.icon = self._config['icon']
+        self._fps = self._config['fps']
+        self._display = Display(self.title, self._fps, self.icon,
+                                size=(self._config['default_width'],
+                                      self._config['default_height']),
+                                min_size=(self._config['default_min_width'],
+                                          self._config['default_min_height']))
 
         self.default_font = Font("assets/windows.ttf", 15)
         self.row_height = self.default_font.font.size('s')[0]
@@ -55,6 +81,14 @@ class Terminal:
 
         # Hack for write() method to help read_line method character spacing
         self._write_buffer = ["", 0]
+
+    def change_config(self, config):
+        for k in config.keys():
+            try:
+                if self._config[k]:
+                    self._config[k] = config[k]
+            except KeyError:
+                raise TerminalConfigError('An invalid key was provided.')
 
     def _core_update(self):
         '''Completes one frame of the display'''
@@ -81,7 +115,7 @@ class Terminal:
                 cs.pos[1] -= self.default_font.font.size('s')[1]
             self._row -= 1
 
-        self._trim_lines(150)
+        self._trim_lines(self._config['line_cutoff'])
 
     def get_size(self):
         return (self._display.width // self.col_width, self._display.height // self.row_height)
@@ -127,8 +161,8 @@ class Terminal:
 
     def reset_color(self):
         '''Resets console colour to default colours'''
-        self.background_color = ConsoleColour.black
-        self.foreground_color = ConsoleColour.white
+        self.background_color = self._config['default_background_colour']
+        self.foreground_color = self._config['default_foreground_colours']
 
     def read(self):
         pass
@@ -182,7 +216,10 @@ class Terminal:
         self._display.quit()
 
 if __name__ == '__main__':
-    c = Terminal(title='pyterm.py test')
+    config = {'title': 'Pyterm.py test'
+    }
+
+    c = Terminal(config)
     #c.sleep(4000)
     c.write_line('C:\\Users\\RGSSt\\pyterm\\src>git status')
     while True:
@@ -192,7 +229,7 @@ if __name__ == '__main__':
         if k == '~':
             c.hide()
             break
-# Config dictionary title, fps, icon, text-cut-off-limit, def-size, min-size
+
     c.show()
 
     c.clear()
