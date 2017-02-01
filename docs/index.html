@@ -24,6 +24,8 @@
   <ol>
     <li><a href='#download'>Download</a></li>
     <li><a href='#how-to-use'>How to use</a></li>
+    <li><a href='#colours'>Colours</a></li>
+    <li><a href='#config'>Configuration</a></li>
     <li><a href='#images'>Images</a></li>
     <li><a href='#authors'>Authors</a></li>
     <li><a href='#planned-features'>Planned features</a></li>
@@ -73,7 +75,7 @@
   </p>
 <pre>
 
-      console = pyterm.Terminal(<span class='keyword'>title</span>=<span class='string'>'My Console'</span>, <span class='keyword'>icon</span>=<span class='string'>'customicon.png'</span>)
+      console = pyterm.Terminal()
     </pre>
   <p>
     Now that you have an initialised Terminal object you are now able to read, write,
@@ -126,6 +128,53 @@
 
 </pre>
   </br>
+  <h2><a name='colours' class='heading'>Colours</a></h2>
+  <p>The ConsoleColour class contains a list of named colours and their RGB values. In order to use this class you must import the colour module.</p>
+  <pre>
+
+      <span class='keyword'>from</span> colour <span class='keyword'>import</span> ConsoleColour
+
+
+      <span class='p_keyword'>print</span>(ConsoleColour.olive_drab)
+      >>> (<span class='keyword'>107</span>, <span class='keyword'>142</span>, <span class='keyword'>45</span>)
+  </pre>
+  <p>Any RGB value in the form of a tuple can be passed as a colour for example:</p>
+  <pre>
+
+      console.foreground_color = ConsoleColour.navajo_white
+  </pre>
+  <p>Is the exact same as:</p>
+  <pre>
+
+      console.foreground_color = (<span class='keyword'>255</span>, <span class='keyword'>222</span>, <span class='keyword'>173</span>)
+  </pre>
+  </br>
+  <h2><a name='config' class='heading'>Configuration</a></h2>
+  <p>To customise the initial Terminal a configuration dictionary can be added to the Terminal. An example:</p>
+  <pre>
+
+      config = {<span class='string'>'title'</span>: <span class='string'>'Pyterm'</span>, <span class='string'>'resizeable'</span>: <span class='keyword'>True</span>}
+
+      console = Terminal(config)
+  </pre>
+  <p>Here are all the configuration keywords and what values they should be.</p>
+  <pre>
+
+      <span class='string'>'title'</span>:                     [<span class='keyword'>string</span>]         <span class='comment'>The caption for the window.</span>
+      <span class='string'>'icon'</span>:                      [<span class='keyword'>string</span>]         <span class='comment'>The icon for the window.</span>
+      <span class='string'>'fps'</span>:                       [<span class='keyword'>int</span>]            <span class='comment'>Frames per second.</span>
+      <span class='string'>'line_cutoff'</span>:               [<span class='keyword'>int</span>]            <span class='comment'>How many lines should be in the buffer at any given time?</span>
+      <span class='string'>'default_background_colour'</span>: [<span class='keyword'>ConsoleColour</span>]  <span class='comment'>The default background colour for the terminal, used for the reset_colour function as well.</span>
+      <span class='string'>'default_foreground_colour'</span>: [<span class='keyword'>ConsoleColour</span>]  <span class='comment'>The default foreground colour for the terminal, used for the reset_colour function as well.</span>
+      <span class='string'>'default_width'</span>:             [<span class='keyword'>int</span>]            <span class='comment'>Default width of the window.</span>
+      <span class='string'>'default_height'</span>:            [<span class='keyword'>int</span>]            <span class='comment'>Default height of the window.</span>
+      <span class='string'>'default_min_width'</span>:         [<span class='keyword'>int</span>]            <span class='comment'>The minimum width of the window.</span>
+      <span class='string'>'default_min_height'</span>:        [<span class='keyword'>int</span>]            <span class='comment'>The minimum height of the window.</span>
+      <span class='string'>'default_max_width'</span>:         [<span class='keyword'>int</span>]            <span class='comment'>The maximum width of the window.</span>
+      <span class='string'>'default_max_height'</span>:        [<span class='keyword'>int</span>]            <span class='comment'>The maximum height of the window.</span>
+      <span class='string'>'resizeable'</span>:                [<span class='keyword'>bool</span>]           <span class='comment'>Should the window be resizeable?</span>
+  </pre>
+  </br>
   <h2><a name='images' class='heading'>Images</a></h2>
   <img src='static/img-1.png' alt='Image 1'/>
   <img src='static/img-2.png' alt='Image 2'/>
@@ -145,6 +194,7 @@
     <li>Copy/Cut/Paste</li>
     <li>Text Wrapping</li>
     <li>Shift Variations for characters &#10004;</li>
+    <li>Control Variations</li>
     <li>Scrolling &#10004;</li>
     <li>Scrolling - Mem Saving &#10004;</li>
     <li>Column & Row selection</li>
@@ -153,11 +203,13 @@
     <li>Colour enumeration</li>
     <li>Event Handling</li>
     <li>Frame saving</li>
-    <li>Hide & Show window</li>
+    <li>Hide & Show window &#10004;</li>
     <li>OS Flavours and default fonts</li>
     <li>Debug/Verbose Output</li>
     <li>Get height and width in rows and columns</li>
     <li>Sleep/Wait function &#10004;</li>
+    <li>Caps lock support</li>
+    <li>Newline parsing</li>
   </ul>
   </br>
   <h2><a name='known-bugs' class='heading'>Known bugs</a></h2>

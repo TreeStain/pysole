@@ -65,6 +65,10 @@ thead {
   color: orange;
 }
 
+.p_keyword {
+  color: rgb(188,120,189);
+}
+
 .comment {
   font-style: oblique;
   color: #696969;
