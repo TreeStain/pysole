@@ -19,8 +19,8 @@ Exceptions:
 '''
 
 
-from pysole.colour import ConsoleColour
-from pysole.window import *
+from colour import ConsoleColour
+from window import *
 import pkg_resources
 
 
@@ -55,6 +55,7 @@ class Console:
                         'default_max_width': None,
                         'default_max_height': None,
                         'resizeable': True,
+                        'beep_sound': None,
                         'font': None
         }
 
@@ -72,9 +73,14 @@ class Console:
                                       self._config['default_height']),
                                 min_size=(self._config['default_min_width'],
                                           self._config['default_min_height']),
-                                resizeable=self._config['resizeable'])
+                                resizeable=self._config['resizeable'],
+                                beep_sound=self._config['beep_sound'])
 
-        self.default_font = Font(pkg_resources.resource_filename('pysole', 'assets/windows.ttf'), 15)
+        if self._config['font'] is not None:
+            self.default_font = Font(self._config['font'], 15)
+        else:
+            raise ConsoleConfigError('The font configuration file was not provided')
+
         self.row_height = self.default_font.font.size('s')[0]
         self.col_width = self.default_font.font.size('s')[0]
 
@@ -90,8 +96,7 @@ class Console:
     def change_config(self, config):
         for k in config.keys():
             try:
-                if self._config[k]:
-                    self._config[k] = config[k]
+                self._config[k] = config[k]
             except KeyError:
                 raise ConsoleConfigError('An invalid key was provided.')
 
@@ -162,7 +167,10 @@ class Console:
 
     def beep(self):
         '''Sounds a small alert beep'''
-        self._display.beep()
+        if self._config['beep_sound']:
+            self._display.beep()
+        else:
+            raise ConsoleConfigError('Beep configuration sound file was not provided.')
 
     def reset_color(self):
         '''Resets console colour to default colours'''
@@ -221,14 +229,9 @@ class Console:
         self._display.quit()
 
 if __name__ == '__main__':
-    config = {'title': 'Pyterm.py test', 'resizeable': True, 'line_cutoff': 10
-    }
-
+    config = {'title': 'Pysole', 'resizeable': True, 'line_cutoff': 10, 'font': 'windows.ttf'}
     c = Console(config)
-    #c.sleep(4000)
-
-    for i in range(100):
-        c.write(i)
-
+    c.write_line('Hello World')
+    c.beep()
     c.read_key()
     c.quit()

@@ -103,7 +103,7 @@ class Display(object):
 
     def __init__(self, title, fps, icon_loc, size=(500, 300), min_size=(None, None),
                                                               max_size=(None, None),
-                                                              resizeable=False):
+                                                              resizeable=False, beep_sound=None):
         pygame.init()
         pygame.font.init()
         pygame.mixer.init()
@@ -137,8 +137,6 @@ class Display(object):
         # Event variable for backspace pressed\
         self._back_down = False
 
-        # ADD os.path.join('assets', 'beep.wav')
-        self.beep_sound = pygame.mixer.Sound(pkg_resources.resource_filename('pysole', 'assets/beep.wav'))
 
     def display_text(self, cs):
         self._surf.blit(cs.txt_surface, cs.pos)
@@ -219,6 +217,7 @@ class Display(object):
         return self._total_ms
 
     def beep(self):
+        self.beep_sound = pygame.mixer.Sound(beep_sound)
         self.beep_sound.play()
 
     @staticmethod
