@@ -21,7 +21,6 @@ Exceptions:
 
 from pysole.colour import ConsoleColour
 from pysole.window import *
-import pkg_resources
 
 
 class ConsoleError(Exception):

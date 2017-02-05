@@ -18,7 +18,6 @@ Todo:
 import pygame
 from pygame.locals import *
 from sys import exit
-import pkg_resources
 
 
 class Font(object):
