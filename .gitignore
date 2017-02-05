@@ -7,7 +7,7 @@
 # Pycache
 __pycache__
 
-#PyPi
+# PyPi
 pysole.egg-info/
 build/
 dist/
