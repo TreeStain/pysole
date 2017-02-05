@@ -27,7 +27,9 @@ Pysole is a graphical console simulation pygame wrapper or in simpler terms, Pys
 
 Pysole can also be installed with pip and the PyPi using the following command.
 
-`pip install pysole`
+```
+pip install pysole
+```
 
 ## How to use
 In order to intergrate your Pysole with your application there is a few steps you must follow. First of all you need to import Pysole. Although it is not necessary you can also import the Colour module, which gives you an enourmouse selection of named colours.
