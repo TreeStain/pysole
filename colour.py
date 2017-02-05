@@ -164,7 +164,3 @@ class ConsoleColour(object):
     white_smoke =            (245, 245, 245)
     yellow =                 (255, 255,   0)
     yellow_green =           (154, 205,  50)
-
-
-class FormColour(object):
-    pass

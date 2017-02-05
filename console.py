@@ -19,19 +19,20 @@ Exceptions:
 '''
 
 
-from colour import ConsoleColour
-from window import *
+from pysole.colour import ConsoleColour
+from pysole.window import *
+import pkg_resources
 
 
-class TerminalError(Exception):
+class ConsoleError(Exception):
     def __init__(self, message):
         self.message = message
 
-class TerminalConfigError(Exception):
+class ConsoleConfigError(Exception):
     def __init__(self, message):
         self.message = message
 
-class Terminal:
+class Console:
     def __init__(self, config=None):
         '''Initialises a terminal object and an inner display object.
 
@@ -42,7 +43,7 @@ class Terminal:
 
         # Fixed window size config
         self._config = {'title': 'Pyterm',
-                        'icon': 'assets/icon.png',
+                        'icon': None,
                         'fps': 60,
                         'line_cutoff': 150,
                         'default_background_colour': ConsoleColour.black,
@@ -73,7 +74,7 @@ class Terminal:
                                           self._config['default_min_height']),
                                 resizeable=self._config['resizeable'])
 
-        self.default_font = Font("assets/windows.ttf", 15)
+        self.default_font = Font(pkg_resources.resource_filename('pysole', 'assets/windows.ttf'), 15)
         self.row_height = self.default_font.font.size('s')[0]
         self.col_width = self.default_font.font.size('s')[0]
 
@@ -92,7 +93,7 @@ class Terminal:
                 if self._config[k]:
                     self._config[k] = config[k]
             except KeyError:
-                raise TerminalConfigError('An invalid key was provided.')
+                raise ConsoleConfigError('An invalid key was provided.')
 
     def _core_update(self):
         '''Completes one frame of the display'''
@@ -166,7 +167,7 @@ class Terminal:
     def reset_color(self):
         '''Resets console colour to default colours'''
         self.background_color = self._config['default_background_colour']
-        self.foreground_color = self._config['default_foreground_colours']
+        self.foreground_color = self._config['default_foreground_colour']
 
     def read(self):
         pass
@@ -220,44 +221,13 @@ class Terminal:
         self._display.quit()
 
 if __name__ == '__main__':
-    config = {'title': 'Pyterm.py test', 'resizeable': True
+    config = {'title': 'Pyterm.py test', 'resizeable': True, 'line_cutoff': 10
     }
 
-    c = Terminal(config)
+    c = Console(config)
     #c.sleep(4000)
-    c.write_line('C:\\Users\\RGSSt\\pyterm\\src>git status')
-    while True:
-        k = c.read_key(wait=False)
-        if k is not None:
-            print(k)
-        if k == '~':
-            break
 
-    c.clear()
-
-    c.write_line()
-    c.write_line('C:\\Users\\RGSSt\\pyterm\\src>git status')
-    c.write_line('On branch master')
-    c.write_line('Your branch is up-to-date with \'origin/master\'.')
-    c.write_line('Changes to be committed:')
-    c.write_line('  (use "git reset HEAD <file>..." to unstage)')
-    c.write_line()
-    c.foreground_color = ConsoleColour.green
-    c.write_line('        modified:    pyterm.py')
-    c.foreground_color = ConsoleColour.white
-    c.write_line()
-    c.write_line('Changes not staged or commit:')
-    c.write_line('  (use "git add <file>..." to update what will be committed)')
-    c.write_line('  (use "git checkout -- <file>..." to discard changes in working directory)')
-    c.write_line()
-    c.foreground_color = ConsoleColour.red
-    c.write_line('        modified:   ../docs/index.html')
-    c.foreground_color = ConsoleColour.white
-    c.write_line()
-    c.write_line()
-    c.write_line('C:\\Users\\RGSSt\\pyterm\\src>')
-
-    for i in range(20):
+    for i in range(100):
         c.write(i)
 
     c.read_key()

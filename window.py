@@ -18,6 +18,7 @@ Todo:
 import pygame
 from pygame.locals import *
 from sys import exit
+import pkg_resources
 
 
 class Font(object):
@@ -107,7 +108,8 @@ class Display(object):
         pygame.font.init()
         pygame.mixer.init()
 
-        pygame.display.set_icon(pygame.image.load(icon_loc))
+        if icon_loc is not None:
+            pygame.display.set_icon(pygame.image.load(icon_loc))
 
         self.width = size[0]
         self.height = size[1]
@@ -135,7 +137,8 @@ class Display(object):
         # Event variable for backspace pressed\
         self._back_down = False
 
-        self.beep_sound = pygame.mixer.Sound("assets/beep.wav")
+        # ADD os.path.join('assets', 'beep.wav')
+        self.beep_sound = pygame.mixer.Sound(pkg_resources.resource_filename('pysole', 'assets/beep.wav'))
 
     def display_text(self, cs):
         self._surf.blit(cs.txt_surface, cs.pos)
