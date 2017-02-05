@@ -22,6 +22,7 @@ Pysole is a graphical console simulation pygame wrapper or in simpler terms, Pys
 ## Download
 * [Github repository](https://github.com/TreeStain/pysole)
 * [![Download pysole](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/pysole/files/latest/download)
+
 [![Download pysole](https://img.shields.io/sourceforge/dt/pysole.svg)](https://sourceforge.net/projects/pysole/files/latest/download)
 
 Pysole can also be installed with pip and the PyPi using the following command.
