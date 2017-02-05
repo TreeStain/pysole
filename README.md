@@ -34,7 +34,7 @@ Next you must initialise and store a new Console object. The console object can 
 ```python
 config = {'font': 'font.ttf'}
 
-console = pysole.Console()
+console = console.Console()
 ```
 
 Now that you have an initialised Console object you are now able to read, write, and change the display of the console.
@@ -107,7 +107,7 @@ To customise the initial Console a configuration dictionary can be added to the 
 ```python
 config = {'title': 'Pysole', 'resizeable': True, 'font': 'font.ttf'}
 
-console = Console(config)
+console = console.Console(config)
 ```
 
 Here are all the configuration keywords and what values they should be.
