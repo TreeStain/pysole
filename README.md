@@ -4,7 +4,7 @@
 Pysole is a graphical console simulation pygame wrapper or in simpler terms, Pysole uses pygame to simulate a text interface, such as Windows powershell or the Linux Console. Initially Pysole was built to emulate .NET Console Applications with their dynamic text and background colouring. However, .NET Console Applications, without the support of mono cannot run on operating systems other then windows. Pysole can run on any os that python and pygame can.
 
 ## Table of contents
-1. Download
+1. [Download](#Download)
 2. How to use
 3. Colours
 4. Configuration
