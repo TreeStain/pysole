@@ -12,3 +12,4 @@ pysole.egg-info/
 build/
 dist/
 setup.py
+setup.cfg
