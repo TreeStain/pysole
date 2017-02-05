@@ -75,3 +75,61 @@ To quit pysole and close the window the following statement must be used.
 ```python
 console.quit()
 ```
+
+##Colours
+The ConsoleColour class contains a list of named colours and their RGB values. In order to use this class you must import the colour module.
+
+```python
+from pysole.colour import ConsoleColour
+
+
+print(ConsoleColour.olive_drab)
+>>> (107, 142, 45)
+```
+
+Any RGB value in the form of a tuple can be passed as a colour for example:
+
+```python
+console.foreground_color = ConsoleColour.navajo_white
+```
+
+Is the exact same as:
+
+```python
+console.foreground_color = (255, 222, 173)
+```
+
+## Configuration
+To customise the initial Console a configuration dictionary can be added to the Console. An example:
+
+```python
+config = {'title': 'Pysole', 'resizeable': True}
+
+console = Console(config)
+```
+
+Here are all the configuration keywords and what values they should be.
+
+```python
+'title':                     [string]         The caption for the window.
+'icon':                      [string]         The icon for the window.
+'fps':                       [int]            Frames per second.
+'line_cutoff':               [int]            How many lines should be in the buffer at any given time?
+'default_background_colour': [ConsoleColour]  The default background colour for the console, used for the reset_colour function as well.
+'default_foreground_colour': [ConsoleColour]  The default foreground colour for the console, used for the reset_colour function as well.
+'default_width':             [int]            Default width of the window.
+'default_height':            [int]            Default height of the window.
+'default_min_width':         [int]            The minimum width of the window.
+'default_min_height':        [int]            The minimum height of the window.
+'default_max_width':         [int]            The maximum width of the window.
+'default_max_height':        [int]            The maximum height of the window.
+'resizeable':                [bool]           Should the window be resizeable?
+```
+
+##Images
+
+![alt text](https://github.com/TreeStain/pysole/blob/master/docs/static/img-1.png "Image 1")
+
+![alt text](https://github.com/TreeStain/pysole/blob/master/docs/static/img-2.png "Image 2")
+
+![alt text](https://github.com/TreeStain/pysole/blob/master/docs/static/img-3.png "Image 3")
