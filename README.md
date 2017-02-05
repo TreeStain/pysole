@@ -111,19 +111,19 @@ console = Console(config)
 Here are all the configuration keywords and what values they should be.
 
 ```python
-'title':                     [string]         The caption for the window.
-'icon':                      [string]         The icon for the window.
-'fps':                       [int]            Frames per second.
-'line_cutoff':               [int]            How many lines should be in the buffer at any given time?
-'default_background_colour': [ConsoleColour]  The default background colour for the console, used for the reset_colour function as well.
-'default_foreground_colour': [ConsoleColour]  The default foreground colour for the console, used for the reset_colour function as well.
-'default_width':             [int]            Default width of the window.
-'default_height':            [int]            Default height of the window.
-'default_min_width':         [int]            The minimum width of the window.
-'default_min_height':        [int]            The minimum height of the window.
-'default_max_width':         [int]            The maximum width of the window.
-'default_max_height':        [int]            The maximum height of the window.
-'resizeable':                [bool]           Should the window be resizeable?
+'title':                     [string]         # The caption for the window.
+'icon':                      [string]         # The icon for the window.
+'fps':                       [int]            # Frames per second.
+'line_cutoff':               [int]            # How many lines should be in the buffer at any given time?
+'default_background_colour': [ConsoleColour]  # The default background colour for the console, used for the reset_colour function as well.
+'default_foreground_colour': [ConsoleColour]  # The default foreground colour for the console, used for the reset_colour function as well.
+'default_width':             [int]            # Default width of the window.
+'default_height':            [int]            # Default height of the window.
+'default_min_width':         [int]            # The minimum width of the window.
+'default_min_height':        [int]            # The minimum height of the window.
+'default_max_width':         [int]            # The maximum width of the window.
+'default_max_height':        [int]            # The maximum height of the window.
+'resizeable':                [bool]           # Should the window be resizeable?
 ```
 
 ##Images
@@ -133,3 +133,40 @@ Here are all the configuration keywords and what values they should be.
 ![alt text](https://github.com/TreeStain/pysole/blob/master/docs/static/img-2.png "Image 2")
 
 ![alt text](https://github.com/TreeStain/pysole/blob/master/docs/static/img-3.png "Image 3")
+
+##Authors
+
+Currently the list of authors is very short (1 person)
+
+* Tristan Arthur (RGSStudios@outlook.com)
+
+##Planned features
+
+Here is a list of all the planned features that are potentially going to be implemented as well as they're priority levels.
+
+* Copy/Cut/Paste
+* Text Wrapping
+* Shift Variations for characters ✔
+* Control Variations
+* Scrolling ✔
+* Scrolling - Mem Saving ✔
+* Column & Row selection
+* Changing fonts
+* Dynamic font sizes
+* Colour enumeration
+* Event Handling
+* Frame saving
+* Hide & Show window ✔
+* OS Flavours and default fonts
+* Debug/Verbose Output
+* Get height and width in rows and columns
+* Sleep/Wait function ✔
+* Caps lock support
+* Newline parsing
+
+## Known bugs
+
+* Scroll uses top as anchor instead of bottom
+* Hiding and then showing the window crashes python
+
+##Source file overview
