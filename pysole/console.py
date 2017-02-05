@@ -55,8 +55,9 @@ class Console:
                         'default_max_height': None,
                         'resizeable': True,
                         'beep_sound': None,
-                        'font': None
-        }
+                        'font': None,
+                        'font_size': 10
+                        }
 
         if config is not None:
             self.change_config(config)
@@ -76,7 +77,7 @@ class Console:
                                 beep_sound=self._config['beep_sound'])
 
         if self._config['font'] is not None:
-            self.default_font = Font(self._config['font'], 15)
+            self.default_font = Font(self._config['font'], self._config['font_size'])
         else:
             raise ConsoleConfigError('The font configuration file was not provided')
 
@@ -95,6 +96,9 @@ class Console:
     def change_config(self, config):
         for k in config.keys():
             try:
+                # Checks if key is real otherwise key error.
+                if self._config[k]:
+                    pass
                 self._config[k] = config[k]
             except KeyError:
                 raise ConsoleConfigError('An invalid key was provided.')
