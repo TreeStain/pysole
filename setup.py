@@ -1,7 +1,9 @@
-from distutils.core import setup
+#from distutils.core import setup
+from setuptools import setup
 setup(
   name = 'pysole',
   packages = ['pysole'], # this must be the same as the name above
+  install_requires = ['pygame'],
   version = '0.1',
   description = 'pysole is a wrapper for simulating C# console applications on any operating system that supports python.',
   author = 'Tristan Arthur',
