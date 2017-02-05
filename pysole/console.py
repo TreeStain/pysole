@@ -101,7 +101,7 @@ class Console:
                     pass
                 self._config[k] = config[k]
             except KeyError:
-                raise ConsoleConfigError('An invalid key was provided.')
+                raise ConsoleConfigError('An invalid key ' + '\'' + str(k) + '\'' + ' was provided.')
 
     def _core_update(self):
         '''Completes one frame of the display'''
