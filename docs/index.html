@@ -6,17 +6,17 @@
 </head>
 <body>
   <header id='header'>
-    <img id='header-image' src='static/icon.png' alt='Pyterm Logo'/ >
-    <h1 id='header-text'>Pyterm Documentation</h1>
+    <img id='header-image' src='static/icon.png' alt='Pysole Logo'/ >
+    <h1 id='header-text'>Pysole Documentation</h1>
   </header>
   </br></br>
   <h2><a name='introduction' class='heading'>Introduction</a></h2>
-  <p><b>Pyterm</b> is a graphical terminal simulation pygame wrapper or in simpler
-  terms, <b>Pyterm</b> uses pygame to simulate a text interface, such as Windows
-  powershell or the Linux Terminal. Initially <b>Pyterm</b> was built to emulate .NET
+  <p><b>Pysole</b> is a graphical terminal simulation pygame wrapper or in simpler
+  terms, <b>Pysole</b> uses pygame to simulate a text interface, such as Windows
+  powershell or the Linux Terminal. Initially <b>Pysole</b> was built to emulate .NET
   Console Applications with their dynamic text and background colouring. However,
   .NET Console Applications, without the support of mono cannot run on operating
-  systems other then windows. <b>Pyterm</b> can run on any os that python and pygame
+  systems other then windows. <b>Pysole</b> can run on any os that python and pygame
   can.
   </p>
   </br>
@@ -35,18 +35,18 @@
   </br>
   <h2><a name='download' class='heading'>Download</a></h2>
   <ul>
-    <li><a href='https://github.com/TreeStain/pyterm'>Github repository</a></li>
+    <li><a href='https://github.com/TreeStain/pysole'>Github repository</a></li>
     <li><a href='#'>Sourceforge</a></li>
   </ul>
   <p>
-    Pyterm can also be installed with pip and the PyPi using the following command.
+    Pysole can also be installed with pip and the PyPi using the following command.
   </p>
     <pre>
 
-      pip install pyterm
+      pip install pysole
     </pre>
   <p>
-    Currently <b>Pyterm</b> is only dependent on two things,
+    Currently <b>Pysole</b> is only dependent on two things,
     <a href='https://www.python.org/download/releases/3.0/'>Python3</a>,
     which can downloaded on their website, and <a href='http://www.pygame.org/'>
     pygame</a>, which can be downloaded using pip.
@@ -59,14 +59,14 @@
   </br>
   <h2><a name='how-to-use' class='heading'>How to use</a></h2>
   <p>
-    In order to intergrate your <b>Pyterm</b> with your application there is a few steps
-    you must follow. First of all you need to import <b>Pyterm</b>. Although it is not
+    In order to intergrate your <b>Pysole</b> with your application there is a few steps
+    you must follow. First of all you need to import <b>Pysole</b>. Although it is not
     necessary you can also import the Colour module, which gives you an
     enourmouse selection of named colours.
   </p>
 <pre>
 
-      <span class='keyword'>import</span> pyterm
+      <span class='keyword'>import</span> pysole
       <span class='keyword'>import</span> colour
     </pre>
   <p>
@@ -75,7 +75,7 @@
   </p>
 <pre>
 
-      console = pyterm.Terminal()
+      console = pysole.Terminal()
     </pre>
   <p>
     Now that you have an initialised Terminal object you are now able to read, write,
@@ -120,7 +120,7 @@
 
 </pre>
   <p>
-    To quit pyterm and close the window the following statement must be used.
+    To quit pysole and close the window the following statement must be used.
   </p>
 <pre>
 
@@ -153,7 +153,7 @@
   <p>To customise the initial Terminal a configuration dictionary can be added to the Terminal. An example:</p>
   <pre>
 
-      config = {<span class='string'>'title'</span>: <span class='string'>'Pyterm'</span>, <span class='string'>'resizeable'</span>: <span class='keyword'>True</span>}
+      config = {<span class='string'>'title'</span>: <span class='string'>'Pysole'</span>, <span class='string'>'resizeable'</span>: <span class='keyword'>True</span>}
 
       console = Terminal(config)
   </pre>
