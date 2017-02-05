@@ -13,3 +13,9 @@ build/
 dist/
 setup.py
 setup.cfg
+
+# Assets
+.wav
+.mp3
+.ttf
+.otf
