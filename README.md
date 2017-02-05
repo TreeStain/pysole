@@ -32,6 +32,8 @@ from pysole.colour import ConsoleColour
 Next you must initialise and store a new Console object. The console object can be initialised with two optional values title and icon.
 
 ```python
+config = {'font': 'font.ttf'}
+
 console = pysole.Console()
 ```
 
@@ -103,7 +105,7 @@ console.foreground_color = (255, 222, 173)
 To customise the initial Console a configuration dictionary can be added to the Console. An example:
 
 ```python
-config = {'title': 'Pysole', 'resizeable': True}
+config = {'title': 'Pysole', 'resizeable': True, 'font': 'font.ttf'}
 
 console = Console(config)
 ```
@@ -124,6 +126,9 @@ Here are all the configuration keywords and what values they should be.
 'default_max_width':         [int]            # The maximum width of the window.
 'default_max_height':        [int]            # The maximum height of the window.
 'resizeable':                [bool]           # Should the window be resizeable?
+'beep_sound':                [string]         # Sound the console plays in the beep method.
+'font':                      [string]         # Font for the console to use.
+'font_size':                 [int]            # Font size.
 ```
 
 ##Images

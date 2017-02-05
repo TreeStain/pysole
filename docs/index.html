@@ -75,7 +75,9 @@
   </p>
 <pre>
 
-      console = pysole.Console()
+      config = {<span class='string'>'font'</span>: <span class='string'>'font.ttf'</span>}
+
+      console = pysole.Console(config)
     </pre>
   <p>
     Now that you have an initialised Console object you are now able to read, write,
@@ -153,7 +155,7 @@
   <p>To customise the initial Console a configuration dictionary can be added to the Console. An example:</p>
   <pre>
 
-      config = {<span class='string'>'title'</span>: <span class='string'>'Pysole'</span>, <span class='string'>'resizeable'</span>: <span class='keyword'>True</span>}
+      config = {<span class='string'>'title'</span>: <span class='string'>'Pysole'</span>, <span class='string'>'resizeable'</span>: <span class='keyword'>True</span>, <span class='string'>'font'</span>: <span class='string'>'font.ttf'</span>}
 
       console = Console(config)
   </pre>
@@ -173,6 +175,9 @@
       <span class='string'>'default_max_width'</span>:         [<span class='keyword'>int</span>]            <span class='comment'>The maximum width of the window.</span>
       <span class='string'>'default_max_height'</span>:        [<span class='keyword'>int</span>]            <span class='comment'>The maximum height of the window.</span>
       <span class='string'>'resizeable'</span>:                [<span class='keyword'>bool</span>]           <span class='comment'>Should the window be resizeable?</span>
+      <span class='string'>'beep_sound'</span>:                [<span class='keyword'>string</span>]         <span class='comment'>Sound the console plays in the beep method.</span>
+      <span class='string'>'font'</span>:                      [<span class='keyword'>string</span>]         <span class='comment'>Font for the console to use.</span>
+      <span class='string'>'font_size'</span>:                 [<span class='keyword'>int</span>]            <span class='comment'>Font size.</span>
   </pre>
   </br>
   <h2><a name='images' class='heading'>Images</a></h2>
