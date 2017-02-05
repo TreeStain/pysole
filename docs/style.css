@@ -74,6 +74,10 @@ thead {
   color: #696969;
 }
 
+.tick {
+  color: green;
+}
+
 #header {
   width: 100%;
   height: 50px;
