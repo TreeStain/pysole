@@ -15,7 +15,8 @@ setup.py
 setup.cfg
 
 # Assets
-.wav
-.mp3
-.ttf
-.otf
+*.wav
+*.mp3
+*.ttf
+*.otf
+*.ico
