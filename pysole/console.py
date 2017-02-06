@@ -87,6 +87,8 @@ class Console:
         self._row = 0
         self._column = 0
 
+        self.run_time = self._display.total_ms
+
         self._frame = []
         self._core_update()
 
@@ -108,6 +110,7 @@ class Console:
         self._display.step(self.background_color)
         for text in self._frame:
             self._display.display_text(text)
+        self.run_time = self._display.total_ms
         self._display.update()
 
     def _trim_lines(self, size):
@@ -195,7 +198,7 @@ class Console:
 
     def read_line(self, for_text=""):
         '''Reads text constantly until 'enter' has been pressed and returns it'''
-        if for_text != "":
+        if for_text != '':
             self.write(for_text)
         line = self._display.get_line()
         while line[1] is False:
@@ -208,7 +211,7 @@ class Console:
                 self._write_buffer[0] = self._write_buffer[0][:-1]
                 self._write_buffer[1] -= 1
                 self.write('')
-        self._write_buffer = ["", 0]
+        self._write_buffer = ['', 0]
         self._display.reset_get_line()
         self._row += 1
         return line[0]
@@ -232,9 +235,10 @@ class Console:
         self._display.quit()
 
 if __name__ == '__main__':
-    config = {'title': 'Pysole', 'resizeable': True, 'line_cutoff': 10, 'font': 'windows.ttf'}
+    config = {'title': 'Pysole', 'resizeable': True, 'line_cutoff': 10, 'font': 'windows.ttf', 'font_size': 15}
     c = Console(config)
     c.write_line('Hello World')
-    c.beep()
+    h = c.read_line('Wot line: ')
+    # c.beep()
     c.read_key()
     c.quit()

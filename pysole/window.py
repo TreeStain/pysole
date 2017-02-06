@@ -89,7 +89,7 @@ class Display(object):
                         '9': '(',
                         '0': ')',
                         '-': '_',
-                        '+': '=',
+                        '=': '+',
                         '[': '{',
                         ']': '}',
                         '\\': '|',
@@ -120,7 +120,7 @@ class Display(object):
 
         self.resizeable = resizeable
 
-        self._total_ms = 0
+        self.total_ms = 0
         self._clock = pygame.time.Clock()
         self._FPS = fps
 
@@ -136,12 +136,15 @@ class Display(object):
         # Event variable for backspace pressed\
         self._back_down = False
 
+        # Add custom code to find initial caps state here...
+        self._caps = False
+
 
     def display_text(self, cs):
         self._surf.blit(cs.txt_surface, cs.pos)
 
     def step(self, bg):
-        self._total_ms += self._clock.tick(self._FPS)
+        self.total_ms += self._clock.tick(self._FPS)
         #self._total_ms += self._FPS
 
         self._surf.fill(bg)
@@ -162,6 +165,10 @@ class Display(object):
         if key_state[K_LSHIFT]:
             upper = True
 
+        # If caps lock is still active set upper
+        if self._caps:
+            upper = True
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.quit()
@@ -172,6 +179,15 @@ class Display(object):
                 elif event.key == K_BACKSPACE:
                     self._sustained_keys = self._sustained_keys[:-1]
                     self._back_down = True
+                elif event.key == K_CAPSLOCK:
+                    if self._caps is True:
+                        print('caps off')
+                        self._caps = False
+                        upper = False
+                    else:
+                        print('caps on')
+                        self._caps = True
+                        upper = True
                 elif event.key != K_LSHIFT:
                     if upper:
                         try:
