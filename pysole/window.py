@@ -182,11 +182,9 @@ class Display(object):
                     self._back_down = True
                 elif event.key == K_CAPSLOCK:
                     if self._caps is True:
-                        print('caps off')
                         self._caps = False
                         upper = False
                     else:
-                        print('caps on')
                         self._caps = True
                         upper = True
                 elif event.key != K_LSHIFT:
