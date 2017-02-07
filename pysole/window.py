@@ -63,16 +63,17 @@ class CharacterString(object):
         colour. Furthermore allowing these values to be dynamicaly changed
 
     """
-    def __init__(self, text, f, pos, col=(255, 255, 255)):
+    def __init__(self, text, f, pos, col=(255, 255, 255), antialiasing=False):
         self.txt_surface = None
-        self.pos = list(pos)
+        self.pos = pos
         self.col = col
         self.f = f
         self.text = text
+        self.antialiasing = antialiasing
         self.render()
 
     def render(self):
-        self.txt_surface = self.f.font.render(str(self.text), True, self.col)
+        self.txt_surface = self.f.font.render(str(self.text), self.antialiasing, self.col)
 
 
 class Display(object):
@@ -228,8 +229,9 @@ class Display(object):
         # Used after get_line method to reset sk
         self._sk_flag = True
 
+    # PLEASE FIX
     def get_run_time(self):
-        return self._total_ms
+        return self.total_ms
 
     def beep(self):
         self.beep_sound = pygame.mixer.Sound(beep_sound)

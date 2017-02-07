@@ -19,8 +19,8 @@ Exceptions:
 '''
 
 
-from pysole.colour import ConsoleColour
-from pysole.window import *
+from colour import ConsoleColour
+from window import *
 
 
 class ConsoleError(Exception):
@@ -44,7 +44,7 @@ class Console:
         self._config = {'title': 'Pyterm',
                         'icon': None,
                         'fps': 60,
-                        'line_cutoff': 150,
+                        'line_cutoff': 2000,
                         'default_background_colour': ConsoleColour.black,
                         'default_foreground_colour': ConsoleColour.white,
                         'default_width': 500,
@@ -56,7 +56,8 @@ class Console:
                         'resizeable': True,
                         'beep_sound': None,
                         'font': None,
-                        'font_size': 10
+                        'font_size': 10,
+                        'antialiasing': False
                         }
 
         if config is not None:
@@ -93,7 +94,7 @@ class Console:
         self._core_update()
 
         # Hack for write() method to help read_line method character spacing
-        self._write_buffer = ["", 0]
+        self._write_buffer = ["", 0, None]
 
     def change_config(self, config):
         for k in config.keys():
@@ -139,29 +140,35 @@ class Console:
     def write_line(self, text=""):
         '''Writes text to the display with a new line.'''
         self._frame += [CharacterString(text, self.default_font,
-                                       (self._column * self.default_font.font.size(self._write_buffer[0])[0],
-                                        self._row * self.default_font.font.size(self._write_buffer[0])[1]),
-                                        self.foreground_color)]
+                                       (self._column * self.default_font.font.size(str(text))[0],
+                                        self._row * self.default_font.font.size(str(text))[1]),
+                                        self.foreground_color, self._config['antialiasing'])]
         self._row += 1
         self._column = 0
-        self._write_buffer = ["", 0]
+        self._cont_line_index = 0
+        # self._write_buffer = ["", 0, None]
         self._check_write_bounds()
         self._core_update()
 
     def write(self, text):
         '''Writes text to display'''
-        self._write_buffer[0] += str(text)
+        '''self._write_buffer[0] += str(text)
+        self._write_buffer[2] = self.foreground_color
         try:
             if self._write_buffer[1] != 0:
                 self._frame.pop()
         except IndexError:
-            pass
-        self._frame += [CharacterString(self._write_buffer[0], self.default_font,
-                                       (self._column * self.default_font.font.size(self._write_buffer[0])[0],
-                                        self._row * self.default_font.font.size(self._write_buffer[0])[1]),
-                                        self.foreground_color)]
+            pass'''
 
-        self._write_buffer[1] += 1
+        # BECAUSE ITS ASSUMING THAT ALL THE OTHER ITEMS ON THE LINE ARE THE SAME SIZE DURRRRRR.
+        #print(self.default_font.font.size(str(text))[0])
+        self._frame += [CharacterString(text, self.default_font,
+                                       (self._column * self.default_font.font.size(str('O'))[0],
+                                        self._row * self.default_font.font.size(str('O'))[1]),
+                                        self.foreground_color, self._config['antialiasing'])]
+
+        self._column += len(str(text))
+        #self._write_buffer[1] += 1
         self._check_write_bounds()
         self._core_update()
 
@@ -198,6 +205,7 @@ class Console:
 
     def read_line(self, for_text=""):
         '''Reads text constantly until 'enter' has been pressed and returns it'''
+        in_char = 0
         if for_text != '':
             self.write(for_text)
         line = self._display.get_line()
@@ -206,14 +214,20 @@ class Console:
             line = self._display.get_line()
             if line[2] is not None:
                 self.write(line[2])
-            if line[3]:
+                in_char += 1
+            if line[3] and in_char > 0:
                 # Handle backspacing, very hacky
-                self._write_buffer[0] = self._write_buffer[0][:-1]
-                self._write_buffer[1] -= 1
-                self.write('')
-        self._write_buffer = ['', 0]
+                #self._write_buffer[0] = self._write_buffer[0][:-1]
+                #self._write_buffer[1] -= 1
+                #self.write('')
+                self._frame.pop()
+                in_char -= 1
+                self._column -= 1
+                self._core_update()
+        #self._write_buffer = ['', 0]
         self._display.reset_get_line()
         self._row += 1
+        self._column = 0
         return line[0]
 
     def sleep(self, ms):

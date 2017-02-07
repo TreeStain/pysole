@@ -93,7 +93,7 @@ class ConsoleColour(object):
     light_goldenrod_yellow = (250, 250, 210)
     light_green =            (144, 238, 144)
     light_gray =             (211, 211, 211)
-    light_pink =             (255, 282, 193)
+    light_pink =             (255, 182, 193)
     light_salmon =           (255, 160, 122)
     light_sea_green =        ( 32, 178, 170)
     light_sky_blue =         (135, 206, 250)
@@ -164,3 +164,9 @@ class ConsoleColour(object):
     white_smoke =            (245, 245, 245)
     yellow =                 (255, 255,   0)
     yellow_green =           (154, 205,  50)
+
+
+    def __iter__():
+        for col in list(vars(ConsoleColour).values()):
+            if type(col) is tuple:
+                yield col

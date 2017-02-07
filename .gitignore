@@ -20,3 +20,6 @@ setup.cfg
 *.ttf
 *.otf
 *.ico
+
+# Test files
+pysole/test.py
