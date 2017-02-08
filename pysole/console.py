@@ -140,36 +140,23 @@ class Console:
     def write_line(self, text=""):
         '''Writes text to the display with a new line.'''
         self._frame += [CharacterString(text, self.default_font,
-                                       (self._column * self.default_font.font.size(str(text))[0],
+                                       (self._column * (self.default_font.font.size('O')[0]),
                                         self._row * self.default_font.font.size(str(text))[1]),
                                         self.foreground_color, self._config['antialiasing'])]
         self._row += 1
         self._column = 0
-        self._cont_line_index = 0
-        # self._write_buffer = ["", 0, None]
         self._check_write_bounds()
         self._core_update()
 
     def write(self, text):
         '''Writes text to display'''
-        '''self._write_buffer[0] += str(text)
-        self._write_buffer[2] = self.foreground_color
-        try:
-            if self._write_buffer[1] != 0:
-                self._frame.pop()
-        except IndexError:
-            pass'''
+        for char in str(text):
+            self._frame += [CharacterString(char, self.default_font,
+                                           (self._column * self.default_font.font.size('O')[0],
+                                            self._row * self.default_font.font.size('O')[1]),
+                                            self.foreground_color, self._config['antialiasing'])]
+            self._column += 1
 
-        # BECAUSE ITS ASSUMING THAT ALL THE OTHER ITEMS ON THE LINE ARE THE SAME SIZE DURRRRRR.
-        #print(self.default_font.font.size(str(text))[0])
-        self._frame += [CharacterString(text, self.default_font,
-                                       (self._column * self.default_font.font.size(str('O'))[0],
-                                        self._row * self.default_font.font.size(str('O'))[1]),
-                                        self.foreground_color, self._config['antialiasing'])]
-
-        self._column += len(str(text))
-        #self._write_buffer[1] += 1
-        self._check_write_bounds()
         self._core_update()
 
     def clear(self):
@@ -216,15 +203,10 @@ class Console:
                 self.write(line[2])
                 in_char += 1
             if line[3] and in_char > 0:
-                # Handle backspacing, very hacky
-                #self._write_buffer[0] = self._write_buffer[0][:-1]
-                #self._write_buffer[1] -= 1
-                #self.write('')
                 self._frame.pop()
                 in_char -= 1
                 self._column -= 1
                 self._core_update()
-        #self._write_buffer = ['', 0]
         self._display.reset_get_line()
         self._row += 1
         self._column = 0
