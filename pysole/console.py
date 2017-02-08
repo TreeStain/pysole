@@ -19,8 +19,8 @@ Exceptions:
 '''
 
 
-from pysole.colour import ConsoleColour
-from pysole.window import *
+from colour import ConsoleColour
+from window import *
 
 
 class ConsoleError(Exception):
@@ -63,8 +63,8 @@ class Console:
         if config is not None:
             self.change_config(config)
 
-        self.background_color = self._config['default_background_colour']
-        self.foreground_color = self._config['default_foreground_colour']
+        self.background_colour = self._config['default_background_colour']
+        self.foreground_colour = self._config['default_foreground_colour']
 
         self.title = self._config['title']
         self.icon = self._config['icon']
