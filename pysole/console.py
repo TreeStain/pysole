@@ -19,8 +19,8 @@ Exceptions:
 '''
 
 
-from colour import ConsoleColour
-from window import *
+from pysole.colour import ConsoleColour
+from pysole.window import *
 
 
 class ConsoleError(Exception):
