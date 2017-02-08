@@ -108,7 +108,7 @@ class Console:
 
     def _core_update(self):
         '''Completes one frame of the display'''
-        self._display.step(self.background_color)
+        self._display.step(self.background_colour)
         for text in self._frame:
             self._display.display_text(text)
         self.run_time = self._display.total_ms
@@ -142,7 +142,7 @@ class Console:
         self._frame += [CharacterString(text, self.default_font,
                                        (self._column * (self.default_font.font.size('O')[0]),
                                         self._row * self.default_font.font.size(str(text))[1]),
-                                        self.foreground_color, self._config['antialiasing'])]
+                                        self.foreground_colour, self._config['antialiasing'])]
         self._row += 1
         self._column = 0
         self._check_write_bounds()
@@ -154,7 +154,7 @@ class Console:
             self._frame += [CharacterString(char, self.default_font,
                                            (self._column * self.default_font.font.size('O')[0],
                                             self._row * self.default_font.font.size('O')[1]),
-                                            self.foreground_color, self._config['antialiasing'])]
+                                            self.foreground_colour, self._config['antialiasing'])]
             self._column += 1
 
         self._core_update()
@@ -172,10 +172,10 @@ class Console:
         else:
             raise ConsoleConfigError('Beep configuration sound file was not provided.')
 
-    def reset_color(self):
+    def reset_colour(self):
         '''Resets console colour to default colours'''
-        self.background_color = self._config['default_background_colour']
-        self.foreground_color = self._config['default_foreground_colour']
+        self.background_colour = self._config['default_background_colour']
+        self.foreground_colour = self._config['default_foreground_colour']
 
     def read(self):
         pass
