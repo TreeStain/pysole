@@ -1,13 +1,13 @@
-'''Pyterm module initially created by Tristan Arthur
+'''console module initially created by Tristan Arthur
 
-Pyterm is a pygame wrapper for simulating C# console applications.
+Pysole is a pygame wrapper for simulating C# console applications.
 
-To expand, pyterm uses pygames graphics capabilities in an attempt to standardize
+To expand, pysole uses pygames graphics capabilities in an attempt to standardize
 text output through a terminal or console. For example, in order to write a
 console application that supports colours for windows, you must use C#, however
-to do the same thing on a linux system, curses/ncurses is needed. Pyterm escapes
+to do the same thing on a linux system, curses/ncurses is needed. Pysole escapes
 this issue. Thus if a console application that supports colours is needed as well
-as support for multiple operating systems, use pyterm.
+as support for multiple operating systems, use pysole.
 
 Extended documentation can be found at treestain.github.io/pyterm/
 
@@ -20,8 +20,8 @@ Exceptions:
 '''
 
 
-from pysole.colour import ConsoleColour
-from pysole.window import *
+from colour import ConsoleColour
+from window import *
 
 
 class ConsoleError(Exception):

@@ -141,6 +141,9 @@ class Display(object):
         # Add custom code to find initial caps state here...
         self._caps = False
 
+        if beep_sound:
+            self.beep_sound = pygame.mixer.Sound(beep_sound)
+
 
     def display_text(self, cs):
         self._surf.blit(cs.txt_surface, (cs.x, cs.y))
@@ -163,11 +166,7 @@ class Display(object):
         # Key presses
         key_state = pygame.key.get_pressed()
         upper = False
-        if key_state[K_LSHIFT]:
-            upper = True
-
-        # If caps lock is still active set upper
-        if self._caps:
+        if key_state[K_LSHIFT] or self._caps:
             upper = True
 
         for event in pygame.event.get():
@@ -181,7 +180,7 @@ class Display(object):
                     self._sustained_keys = self._sustained_keys[:-1]
                     self._back_down = True
                 elif event.key == K_CAPSLOCK:
-                    if self._caps is True:
+                    if self._caps:
                         self._caps = False
                         upper = False
                     else:
@@ -232,7 +231,6 @@ class Display(object):
         return self._total_ms
 
     def beep(self):
-        self.beep_sound = pygame.mixer.Sound(beep_sound)
         self.beep_sound.play()
 
     @staticmethod
