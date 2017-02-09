@@ -65,7 +65,8 @@ class CharacterString(object):
     """
     def __init__(self, text, f, pos, col=(255, 255, 255), antialiasing=False):
         self.txt_surface = None
-        self.pos = pos
+        self.x = pos[0]
+        self.y = pos[1]
         self.col = col
         self.f = f
         self.text = text
@@ -121,7 +122,7 @@ class Display(object):
 
         self.resizeable = resizeable
 
-        self.total_ms = 0
+        self._total_ms = 0
         self._clock = pygame.time.Clock()
         self._FPS = fps
 
@@ -142,11 +143,10 @@ class Display(object):
 
 
     def display_text(self, cs):
-        self._surf.blit(cs.txt_surface, cs.pos)
+        self._surf.blit(cs.txt_surface, (cs.x, cs.y))
 
     def step(self, bg):
-        self.total_ms += self._clock.tick(self._FPS)
-        #self._total_ms += self._FPS
+        self._total_ms += self._clock.tick(self._FPS)
 
         self._surf.fill(bg)
 
@@ -229,7 +229,7 @@ class Display(object):
 
     # PLEASE FIX
     def get_run_time(self):
-        return self.total_ms
+        return self._total_ms
 
     def beep(self):
         self.beep_sound = pygame.mixer.Sound(beep_sound)

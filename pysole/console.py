@@ -16,6 +16,7 @@ Classes:
 
 Exceptions:
     TerminalError: Used for more unique and readable error messages.
+    TerminalConfigError: Used for incorrect configuration use.
 '''
 
 
@@ -57,7 +58,8 @@ class Console:
                         'beep_sound': None,
                         'font': None,
                         'font_size': 10,
-                        'antialiasing': False
+                        'antialiasing': False,
+                        'anchor': 'bottom'
                         }
 
         if config is not None:
@@ -88,13 +90,13 @@ class Console:
         self._row = 0
         self._column = 0
 
-        self.run_time = self._display.total_ms
+        self.STD_ROW_HEIGHT = self.default_font.font.size('O')[1]
+
+        self.run_time = self._display.get_run_time()
 
         self._frame = []
         self._core_update()
 
-        # Hack for write() method to help read_line method character spacing
-        self._write_buffer = ["", 0, None]
 
     def change_config(self, config):
         for k in config.keys():
@@ -111,7 +113,7 @@ class Console:
         self._display.step(self.background_colour)
         for text in self._frame:
             self._display.display_text(text)
-        self.run_time = self._display.total_ms
+        self.run_time = self._display.get_run_time()
         self._display.update()
 
     def _trim_lines(self, size):
@@ -129,7 +131,7 @@ class Console:
 
         if col_height >= win_height:
             for cs in self._frame:
-                cs.pos[1] -= self.default_font.font.size('s')[1]
+                cs.y -= self.STD_ROW_HEIGHT
             self._row -= 1
 
         self._trim_lines(self._config['line_cutoff'])
@@ -137,12 +139,13 @@ class Console:
     def get_size(self):
         return (self._display.width // self.col_width, self._display.height // self.row_height)
 
-    def write_line(self, text=""):
+    def write_line(self, text=''):
         '''Writes text to the display with a new line.'''
-        self._frame += [CharacterString(text, self.default_font,
-                                       (self._column * (self.default_font.font.size('O')[0]),
-                                        self._row * self.default_font.font.size(str(text))[1]),
-                                        self.foreground_colour, self._config['antialiasing'])]
+        if text:
+            self._frame += [CharacterString(text, self.default_font,
+                                           (self._column * (self.default_font.font.size('O')[0]),
+                                            self._row * self.STD_ROW_HEIGHT),
+                                            self.foreground_colour, self._config['antialiasing'])]
         self._row += 1
         self._column = 0
         self._check_write_bounds()
@@ -150,14 +153,21 @@ class Console:
 
     def write(self, text):
         '''Writes text to display'''
-        for char in str(text):
-            self._frame += [CharacterString(char, self.default_font,
-                                           (self._column * self.default_font.font.size('O')[0],
-                                            self._row * self.default_font.font.size('O')[1]),
-                                            self.foreground_colour, self._config['antialiasing'])]
-            self._column += 1
 
-        self._core_update()
+        if text:
+            x = self._column * self.default_font.font.size('O')[0]
+            try:
+                if self._column * self.STD_ROW_HEIGHT == self._frame[-1].y:
+                    x = frame[-1].x + self.default_font.font.size(self._frame[-1].text[:-1])[0]
+            except:
+                pass
+
+            self._frame += [CharacterString(text, self.default_font,
+                                           (x, self._row * self.STD_ROW_HEIGHT),
+                                            self.foreground_colour, self._config['antialiasing'])]
+            self._column += len(str(text))
+
+            self._core_update()
 
     def clear(self):
         '''Clears the display.'''
@@ -190,23 +200,22 @@ class Console:
         self._core_update()
         return key
 
-    def read_line(self, for_text=""):
+    def read_line(self, for_text=''):
         '''Reads text constantly until 'enter' has been pressed and returns it'''
+        self._check_write_bounds()
         in_char = 0
-        if for_text != '':
-            self.write(for_text)
+        self.write(for_text[:-1])
         line = self._display.get_line()
-        while line[1] is False:
+        while not line[1]:
             self._core_update()
             line = self._display.get_line()
-            if line[2] is not None:
+            if line[2]:
                 self.write(line[2])
                 in_char += 1
             if line[3] and in_char > 0:
                 self._frame.pop()
                 in_char -= 1
                 self._column -= 1
-                self._core_update()
         self._display.reset_get_line()
         self._row += 1
         self._column = 0
@@ -229,12 +238,3 @@ class Console:
     def quit(self):
         '''calls the display quit function'''
         self._display.quit()
-
-if __name__ == '__main__':
-    config = {'title': 'Pysole', 'resizeable': True, 'line_cutoff': 10, 'font': 'windows.ttf', 'font_size': 15}
-    c = Console(config)
-    c.write_line('Hello World')
-    h = c.read_line('Wot line: ')
-    # c.beep()
-    c.read_key()
-    c.quit()
