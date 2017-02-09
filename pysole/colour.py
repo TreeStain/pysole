@@ -170,3 +170,8 @@ class ConsoleColour(object):
         for col in list(vars(ConsoleColour).values()):
             if type(col) is tuple:
                 yield col
+
+    def items():
+        for col in list(vars(ConsoleColour).values()):
+            if type(col) is tuple:
+                yield col

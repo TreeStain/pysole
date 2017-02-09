@@ -76,6 +76,24 @@ class CharacterString(object):
     def render(self):
         self.txt_surface = self.f.font.render(str(self.text), self.antialiasing, self.col)
 
+    def __str__(self):
+        return self.text
+
+    def __add__(self, other):
+        if type(other) is str:
+            return CharacterString(str(self.text) + other, self.f, (self.x, self.y), self.col, self.antialiasing)
+        elif type(other) is CharacterString:
+            return CharacterString(str(self.text) + str(other.text), self.f, (self.x, self.y), self.col, self.antialiasing)
+
+    def __rmul__(self, other):
+        pass
+
+    def __mul__(self, other):
+        if type(other) is int:
+            return CharacterString(str(self.text) * other, self.f, (self.x, self.y), self.col, self.antialiasing)
+        else:
+            raise ValueError('Cannot multiply by ' + str(type(other)) + '.')
+
 
 class Display(object):
 
